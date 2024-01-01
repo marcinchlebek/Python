@@ -58,4 +58,5 @@ while True:
     if event == '-LAP-':
         window.extend_layout(window['-LAPS-'], [[sg.Text(lap_amount), sg.VSeparator(), sg.Text(elapsed_time)]])
         lap_amount += 1
+        
 window.close()
