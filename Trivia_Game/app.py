@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QCursor
 #function imports
-#from functions import frame1, frame2, frame3, frame4, grid
+# from functions import frame1, frame2, frame3, frame4, grid
 
 widgets = {
     "logo": [],
@@ -27,6 +27,22 @@ window.setFixedWidth(1000)
 window.setStyleSheet("background: #161219;")
 
 grid = QGridLayout()
+
+def clear_widgets():
+    for widget in widgets:
+        if widgets[widget] != []:
+            widgets[widget][-1].hide()
+        for i in range(0, len(widgets[widget])):
+            widgets[widget].pop()
+
+def show_frame1():
+    clear_widgets()
+    frame1()
+
+def start_game():
+    clear_widgets()
+    frame2()
+
 
 def create_button(answer, l_margin, r_margin):
     button = QPushButton(answer)
@@ -50,6 +66,7 @@ def create_button(answer, l_margin, r_margin):
         }
         '''
     )
+    button.clicked.connect(show_frame1)
     return button
 
 def frame1():
@@ -73,10 +90,11 @@ def frame1():
         "margin: 100px 200px;}" +
         "*:hover{background: '#BC006C';}"
         )
+    button.clicked.connect(start_game)
     widgets["button"].append(button)
 
-    grid.addWidget(widgets["logo"][-1], 0, 0)
-    grid.addWidget(widgets["button"][-1], 1, 0)
+    grid.addWidget(widgets["logo"][-1], 0, 0, 1, 2)
+    grid.addWidget(widgets["button"][-1], 1, 0, 1, 2)
 
 def frame2():
     score = QLabel("80")
@@ -135,7 +153,8 @@ def frame2():
     grid.addWidget(widgets["answer4"][-1], 3, 1)
     grid.addWidget(widgets["logo"][-1], 4, 0, 1, 2)
 
-frame2()
+
+frame1()
 
 window.setLayout(grid)
 
